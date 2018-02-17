@@ -4,6 +4,8 @@ node_modules/
 # Files
 *.log
 *.key.js
+*.db
+testdata.json
 
 # IDE
 .vscode/
