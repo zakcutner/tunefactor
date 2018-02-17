@@ -1,7 +1,135 @@
+$primary: #303f9f;
+$dark: darken($primary, 10);
+$black: #000;
+$white: #fff;
+$light: #eee;
+
 * {
   padding: 0;
   margin: 0;
   border: 0;
   outline: 0;
   box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Quicksand";
+  font-weight: 700;
+  height: 100vh;
+
+  background: $primary;
+  color: $white;
+}
+
+a {
+  color: $white;
+  text-decoration: none;
+}
+
+span {
+  margin-left: 10px;
+}
+
+header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: $primary;
+  padding: 35px 45px;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 26px;
+}
+
+.nav {
+  a {
+    display: inline-block;
+    background: $dark;
+    padding: 15px;
+    border-radius: 999px;
+    margin-left: 20px;
+    width: 150px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 0px 0px 15px 0px rgba($black, 0.1);
+  }
+}
+
+.content {
+  background: $white;
+  color: $dark;
+  border-radius: 5px;
+  padding: 50px;
+  width: 450px;
+  box-shadow: 0px 0px 25px 0px rgba($black, 0.2);
+
+  h1 {
+    font-size: 28px;
+
+    i {
+      height: 50px;
+      width: 50px;
+      background: $dark;
+      color: $white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 50px;
+      font-size: 20px;
+      box-shadow: 0px 0px 15px 0px rgba($black, 0.1);
+    }
+  }
+
+  p {
+     margin: 35px 0;
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 16px;
+    background: $light;
+    padding: 20px 25px;
+    border-radius: 5px;
+    color: inherit;
+  }
+
+  a {
+    position: relative;
+    display: inline-block;
+    background: darken($primary, 10);
+    padding: 15px;
+    border-radius: 999px;
+    width: 150px;
+    margin-top: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 15px;
+    text-align: center;
+    box-shadow: 0px 0px 15px 0px rgba($black, 0.1);
+
+    i {
+      position: absolute;
+      right: 30px;
+    }
+
+    span {
+      margin-left: 0;
+      margin-right: 10px;
+    }
+  }
 }
