@@ -7,16 +7,21 @@ var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 var passport = require('passport');
-var authenticate = require('./authenticate');
+var expressSession = require('express-session');
+var usersRouter = require('./routes/usersRouter');
 
 var index = require('./routes/index');
 var usersRouter = require('./routes/usersRouter');
-const users = require('./models/users');
+var flash = require('connect-flash');
+
 
 var app = express();
-
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+
 
 const url = 'mongodb://localhost:27017/tuna';
 const connect = mongoose.connect(url, {
@@ -31,19 +36,6 @@ connect.then((db) => {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-function auth (req, res, next) {
-    console.log(req.user);
-
-    if (!req.user) {
-      var err = new Error('You are not authenticated!');
-      res.setHeader('WWW-Authenticate', 'Basic');
-      err.status = 401;
-      next(err);
-    }
-    else {
-      next();
-    }
-};
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -52,8 +44,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', index);
-app.use('/', usersRouter);
+
+var LocalStrategy = require('passport-local').Strategy;
+var routes = require('./routes/index');
+var users = require('./models/users');
+app.use('/', routes);
+
+// passport config
+passport.use(new LocalStrategy(users.authenticate()));
+passport.serializeUser(users.serializeUser());
+passport.deserializeUser(users.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -61,6 +61,7 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -1,0 +1,34 @@
+doctype html
+html
+	head
+		title Login
+		meta(charset='utf-8')
+		link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Quicksand:400,500,700')
+		link(rel='stylesheet', href='//use.fontawesome.com/releases/v5.0.6/css/all.css')
+		link(rel='stylesheet', href='css/styles.css')
+	body
+		header
+			.logo
+				i.fas.fa-credit-card
+				span CoolBank™
+			.nav
+				a(href='#')
+					i.fas.fa-building
+					span About
+				a(href='#')
+					i.fas.fa-lock
+					span Login
+		.content
+			h1
+				i.fas.fa-sign-in-alt
+				span Secure Login
+			p Please enter your username and password to continue.
+			form(action='/login', method='POST')
+				input(type='text', placeholder='Username', name='username')
+				input(type='password', placeholder='Password', name='password')
+				input(type='submit')
+				a(href='#')
+					span Next
+					i.fas.fa-angle-right
+		script(src='js/jquery-3.3.1.js')
+		script(src='js/scripts.js')
