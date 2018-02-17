@@ -12,7 +12,7 @@ class VerificationProcess {
   static extractSongData(song) {
     return {
              id:         song.id,
-             name:       song.name.replace(/\(.+?\)/g, "").replace(/\s+/g, " ").trim(),
+             name:       song.name.replace(/\s?\(.+?\)\s?/g, " ").trim(),
              previewURL: song.preview_url,
              coverArt:   song.album.images.reduce((smallest, next) => smallest.height > next.height ? next : smallest).url,
              artists:    song.artists.map(a => a.name).reduce((ns, n) => `${ns}, ${n}`)
