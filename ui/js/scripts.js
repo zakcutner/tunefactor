@@ -1,21 +1,48 @@
 'use strict';
 
+var username;
 var audios = {};
 
 $(function() {
+  $(document).ready(function(){
+    $('.owl-carousel').owlCarousel({
+      mouseDrag: false,
+      autoWidth: true,
+      autoHeight: true,
+      dotsSpeed: 400
+    });
+  });
+
   $('.next').click(function(e) {
     e.preventDefault();
+    var next = $('.owl-dot.active').next();
+    next.click();
 
-    var ids = $('li').get().map(function(el) {
+    Sortable.create($('.owl-item.active ul')[0], {
+      animation: 150
+    });
+
+    var ids = $('.owl-item.active li').get().map(function(el) {
       return $(el).data('id');
+    });
+
+    username = $('#username').val();
+
+    $.post('/login', {
+      username: $('#username').val(),
+      password: $('#password').val()
+    }, function(data) {
+      if (data.success) {
+        $.post('/api/initial_song', { username: username }, nextChallenge);
+      }
     });
 
     console.log(ids);
   });
 
-  Sortable.create($('ul')[0], {
-    animation: 150
-  });
+  function nextChallenge(data) {
+
+  }
 
   $.get('data.json', function(data) {
     data.forEach(function(song) {

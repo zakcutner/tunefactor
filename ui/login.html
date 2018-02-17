@@ -4,8 +4,10 @@
     <title>Login</title>
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Quicksand:400,500,700">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Quicksand:700&amp;subset=latin-ext">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.6/css/all.css">
+    <link rel="stylesheet" href="owl/owl.carousel.css">
+    <link rel="stylesheet" href="owl/owl.theme.default.css">
     <link rel="stylesheet" href="css/styles.css">
   </head>
 
@@ -31,48 +33,61 @@
     <div class="content">
       <div class="box">
         <h1>
-          <i class="fas fa-sign-in-alt"></i>
+          <i class="fas fa-lock"></i>
           <span>Secure Login</span>
         </h1>
 
-        <div class="logic">
-          <!-- <section>
+        <div class="logic owl-carousel">
+          <section>
             <p class="instructions">Please enter your username and password to continue.</p>
 
             <div class="inputs">
               <div class="input">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Username">
+                <input id="username" type="text" placeholder="Username">
               </div>
 
               <div class="input">
                 <i class="fas fa-key"></i>
-                <input type="password" placeholder="Password">
+                <input id="password" type="password" placeholder="Password">
               </div>
             </div>
-
-            <a class="next" href="#">
-                <span>Next</span>
-                <i class="fas fa-angle-right"></i>
-              </a>
-          </section> -->
+          </section>
 
           <section>
             <p class="instructions">Rank the following songs in order of your preference.</p>
 
             <ul></ul>
-
-            <a class="next" href="#">
-              <span>Next</span>
-              <i class="fas fa-angle-right"></i>
-            </a>
           </section>
-        </ul>
+
+          <section>
+            <p class="instructions">Rank the following songs in order of your preference.</p>
+
+            <ul></ul>
+          </section>
+
+          <section>
+            <p class="instructions">Rank the following songs in order of your preference.</p>
+
+            <ul></ul>
+          </section>
+
+          <section>
+            <p class="instructions">Rank the following songs in order of your preference.</p>
+
+            <ul></ul>
+          </section>
+        </div>
+
+        <a class="next" href="#">
+          <span>Next</span>
+          <i class="fas fa-angle-right"></i>
+        </a>
       </div>
     </div>
 
     <script src="js/jquery-3.3.1.js"></script>
-    <script src="js/velocity.js"></script>
+    <script src="js/owl.carousel.js"></script>
     <script src="js/sortable.js"></script>
     <script src="js/scripts.js"></script>
   </body>
