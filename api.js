@@ -8,6 +8,7 @@ var client_id = key.CLIENT_ID;
 var client_secret = key.CLIENT_SECRET;
 var redirect_uri = 'http://localhost:8888/callback';
 
+const db = require('./db.js');
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -54,6 +55,55 @@ app.get('/signup', function(req, res) {
 
 });
 
+function getTracks(username) {
+
+  db.createTable();
+  var tokens = db.getTokens(username);
+
+  var access_token = tokens.access_token;
+  var refresh_token = tokens.refresh_token;
+
+  var options = {
+    url: 'https://api.spotify.com/v1/me/top/tracks?limit=50',
+    headers: { 'Authorization': 'Bearer ' + "asdf" },
+    json: true
+  };
+
+  // use the access token to access the Spotify Web API
+  request.get(options, function(error, response, body) {
+
+    if (body.hasOwnProperty('error')) {
+
+      var authOptions = {
+        url: 'https://accounts.spotify.com/api/token',
+        headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+        form: {
+          grant_type: 'refresh_token',
+          refresh_token: refresh_token
+        },
+        json: true
+      };
+
+      request.post(authOptions, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+          var access_token = body.access_token;
+          db.updateAccessToken(username, access_token);
+          return getTracks(username);
+        } else {
+          return body;
+        }
+      });
+
+    }
+
+    return body;
+  });
+}
+
+module.exports = {
+  getTracks: getTracks
+}
+
 app.get('/login', function(req, res) {
 
   //request should have a username parameter
@@ -63,6 +113,52 @@ app.get('/login', function(req, res) {
   //spotify account again, by fetching access token from database.
   //check if access token has expired. If so, fetch new access token
   //using refresh token.
+  db.createTable();
+  var tokens = db.getTokens("testuser");
+
+  console.dir(tokens);
+
+  var access_token = tokens.access_token;
+  var refresh_token = tokens.refresh_token;
+
+  var options = {
+    url: 'https://api.spotify.com/v1/me/top/tracks?limit=50',
+    headers: { 'Authorization': 'Bearer ' + "asdf" },
+    json: true
+  };
+
+  // use the access token to access the Spotify Web API
+  request.get(options, function(error, response, body) {
+
+    if (body.hasOwnProperty('error')) {
+
+      var authOptions = {
+        url: 'https://accounts.spotify.com/api/token',
+        headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+        form: {
+          grant_type: 'refresh_token',
+          refresh_token: refresh_token
+        },
+        json: true
+      };
+
+      request.post(authOptions, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+          var access_token = body.access_token;
+
+          db.updateAccessToken(access_token);
+          console.log(db.getTokens("testuser").access_token);
+
+        } else {
+
+          console.log('error getting new access token');
+
+        }
+      });
+    }
+    console.log(JSON.stringify(body));
+  });
+
 
   //make get request to spotify api end point using the access token.
 
@@ -104,7 +200,9 @@ app.get('/callback', function(req, res) {
         var access_token = body.access_token,
             refresh_token = body.refresh_token;
 
-        //store the access_token and refresh_token in the database.
+        console.log(typeof access_token);
+        db.createTable();
+        db.addUser("testuser", access_token, refresh_token);
 
         var options = {
           url: 'https://api.spotify.com/v1/me/top/tracks?limit=50',

@@ -9,7 +9,7 @@ function getTokens(username) {
 
 function addUser(username, access_token, refresh_token) {
   const query = db.prepare(`INSERT INTO tokens (username, access_token, refresh_token) VALUES ('${username}', '${access_token}', '${refresh_token}')`);
-  
+
   return query.run();
 }
 
