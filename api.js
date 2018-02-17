@@ -108,9 +108,7 @@ function getTracks(username, callback) {
   });
 }
 
-module.exports = {
-  getTracks: getTracks
-}
+module.exports.getTracks = getTracks;
 
 app.get('/login', function(req, res) {
 
