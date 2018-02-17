@@ -1,5 +1,6 @@
 var express = require('express');
-const bodyParser = require('body-parser');
+var router = express.Router();
+
 var mongoose = require('mongoose');
 
 const users = require('../models/users');
