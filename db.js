@@ -20,7 +20,7 @@ function updateAccessToken(username, access_token) {
 }
 
 function createTable() {
-  const query = db.prepare(`CREATE TABLE tokens (username TEXT, access_token TEXT, refresh_token TEXT);`);
+  const query = db.prepare(`CREATE TABLE IF NOT EXISTS tokens (username TEXT, access_token TEXT, refresh_token TEXT);`);
 
   return query.run();
 }
