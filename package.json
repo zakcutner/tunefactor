@@ -1,0 +1,19 @@
+{
+  "name": "tuna-verify",
+  "version": "1.0.0",
+  "description": "Music-based 2FA",
+  "main": "verify.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zcutner/tuna.git"
+  },
+  "author": "Alexander Nielsen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zcutner/tuna/issues"
+  },
+  "homepage": "https://github.com/zcutner/tuna#readme"
+}
