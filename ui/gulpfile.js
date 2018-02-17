@@ -14,7 +14,7 @@ gulp.task('sass', () => {
 gulp.task('build', ['sass'])
 
 gulp.task('watch', () => {
-  gulp.watch('./src/sass/*.scss', ['sass'])
+  gulp.watch('./sass/*.scss', ['sass'])
 })
 
 gulp.task('default', () => connect.server())
