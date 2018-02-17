@@ -1,0 +1,22 @@
+{
+  "name": "tuna-db",
+  "version": "1.0.0",
+  "description": "Database for tuna",
+  "main": "db.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zcutner/tuna.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zcutner/tuna/issues"
+  },
+  "homepage": "https://github.com/zcutner/tuna#readme",
+  "dependencies": {
+    "better-sqlite3": "^4.1.0"
+  }
+}
