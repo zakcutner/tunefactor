@@ -13,11 +13,11 @@
     <header>
       <div class="logo">
         <i class="fas fa-credit-card"></i>
-        <span>CoolBank&trade;</span>
+        <span>SomeBank&trade;</span>
       </div>
 
       <div class="nav">
-        <a href="#">
+        <a href="#" class="disabled">
           <i class="fas fa-building"></i>
           <span>About</span>
         </a>
@@ -29,22 +29,51 @@
     </header>
 
     <div class="content">
-      <h1>
-        <i class="fas fa-sign-in-alt"></i>
-        <span>Secure Login</span>
-      </h1>
+      <div class="box">
+        <h1>
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Secure Login</span>
+        </h1>
 
-      <p>Please enter your username and password to continue.</p>
+        <div class="logic">
+          <!-- <section>
+            <p class="instructions">Please enter your username and password to continue.</p>
 
-      <input type="text" placeholder="Username">
-      <input type="password" placeholder="Password">
-      <a href="#">
-        <span>Next</span>
-        <i class="fas fa-angle-right"></i>
-      </a>
+            <div class="inputs">
+              <div class="input">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Username">
+              </div>
+
+              <div class="input">
+                <i class="fas fa-key"></i>
+                <input type="password" placeholder="Password">
+              </div>
+            </div>
+
+            <a class="next" href="#">
+                <span>Next</span>
+                <i class="fas fa-angle-right"></i>
+              </a>
+          </section> -->
+
+          <section>
+            <p class="instructions">Rank the following songs in order of your preference.</p>
+
+            <ul></ul>
+
+            <a class="next" href="#">
+              <span>Next</span>
+              <i class="fas fa-angle-right"></i>
+            </a>
+          </section>
+        </ul>
+      </div>
     </div>
 
     <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/velocity.js"></script>
+    <script src="js/sortable.js"></script>
     <script src="js/scripts.js"></script>
   </body>
 </html>

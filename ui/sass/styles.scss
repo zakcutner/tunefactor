@@ -1,4 +1,5 @@
-$primary: #303f9f;
+$primary: darken(#455a64, 12);
+$secondary: darken(#00bfa5, 5);
 $dark: darken($primary, 10);
 $black: #000;
 $white: #fff;
@@ -14,14 +15,13 @@ $light: #eee;
 
 body {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 
   font-family: "Quicksand";
   font-weight: 700;
   height: 100vh;
 
-  background: $primary;
+  background: $secondary;
   color: $white;
 }
 
@@ -35,26 +35,24 @@ span {
 }
 
 header {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  background: $primary;
   padding: 35px 45px;
+  padding-bottom: 0;
 }
 
 .logo {
   font-weight: 700;
   font-size: 26px;
+  letter-spacing: 1px;
 }
 
 .nav {
   a {
     display: inline-block;
-    background: $dark;
+    background: darken($secondary, 20);
     padding: 15px;
     border-radius: 999px;
     margin-left: 20px;
@@ -64,24 +62,41 @@ header {
     font-size: 14px;
     text-align: center;
     box-shadow: 0px 0px 15px 0px rgba($black, 0.1);
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: darken($secondary, 20) !important;
+    }
+
+    &.disabled {
+      background: darken($secondary, 10);
+    }
   }
 }
 
 .content {
-  background: $white;
-  color: $dark;
-  border-radius: 5px;
-  padding: 50px;
-  width: 450px;
-  box-shadow: 0px 0px 25px 0px rgba($black, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+
+  .box {
+    background: darken($primary, 10);
+    color: $white;
+    border-radius: 5px;
+    padding: 30px 40px;
+    width: 450px;
+    box-shadow: 0px 0px 25px 0px rgba($black, 0.2);
+  }
 
   h1 {
     font-size: 28px;
+    letter-spacing: 1px;
 
     i {
       height: 50px;
       width: 50px;
-      background: $dark;
+      background: darken($primary, 5);
       color: $white;
       border-radius: 50%;
       text-align: center;
@@ -91,31 +106,111 @@ header {
     }
   }
 
-  p {
+  .logic {
+    position: relative;
+    overflow: hidden;
+  }
+
+  section {
+    display: inline-block;
+    width: 370px;
+
+    &:not(:first-of-type) {
+      position: absolute;
+      top: 0;
+      transform: translateX(370px);
+    }
+  }
+
+  p.instructions {
      margin: 35px 0;
   }
 
-  input {
-    display: block;
+  .inputs {
+    margin-bottom: 15px;
+  }
+
+  .input {
+    display: flex;
     width: 100%;
     margin-top: 20px;
+    background: darken($primary, 5);
+    padding: 20px 25px;
+    border-radius: 5px;
+
+    i {
+      color: #777;
+      margin-right: 15px;
+    }
+  }
+
+  input {
+    flex: 1;
+    display: inline-block;
+    background: inherit;
     font-family: inherit;
     font-weight: 700;
     font-size: 16px;
-    background: $light;
-    padding: 20px 25px;
-    border-radius: 5px;
-    color: inherit;
+    color: #fff;
   }
 
-  a {
+  li {
+    position: relative;
+    background: darken($primary, 5);
+    color: #fff;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 15px 0;
+    z-index: 2;
+    cursor: move;
+
+    display: flex;
+    align-items: center;
+
+    box-shadow: 0px 0px 15px 0px rgba($black, 0.1);
+
+    &.sortable-ghost {
+      visibility: hidden;
+    }
+
+    img {
+      box-shadow: 0px 0px 15px 0px rgba($black, 0.1);
+      border-radius: 5px;
+      width: 45px;
+    }
+
+    p {
+      font-size: 14px;
+      margin-left: 20px;
+    }
+
+    a {
+      position: absolute;
+      right: 15px;
+      background: $secondary;
+      opacity: 0.4;
+      height: 45px;
+      width: 45px;
+      line-height: 45px;
+      text-align: center;
+      border-radius: 50%;
+      box-shadow: 0px 0px 15px 0px rgba($black, 0.1);
+      transition: opacity 0.2s ease;
+
+      &:hover, &.play {
+        opacity: 1;
+      }
+    }
+  }
+
+  a.next {
     position: relative;
     display: inline-block;
-    background: darken($primary, 10);
+    background: $secondary;
     padding: 15px;
     border-radius: 999px;
     width: 150px;
-    margin-top: 30px;
+    margin-top: 20px;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 15px;
