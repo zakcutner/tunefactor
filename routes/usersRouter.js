@@ -1,11 +1,13 @@
 var express = require('express');
 const bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var passport = require('passport');
 
 const users = require('../models/users');
 
 var router = express.Router();
 router.use(bodyParser.json());
+
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -88,4 +90,30 @@ router.route('/:userId')
   .catch((err) => next(err));
 })
 
+router.post('/signup', (req, res, next) => {
+  User.register(new User(req.body)), req.body.password,
+    (err, user) => {
+      if (err) {
+        res.statusCode = 500;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({err:err});
+      } else {
+        passport.authenticate('local')(req, res, () => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({success: true, status: "Registration Complete!"});
+          res.render();
+        })
+      }
+    }
+});
+
+router.post('/login', passport.authenticate('local'), (req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.json({success: true, status: "Login Successful!"})
+  res.render();
+})
+
+router.post('/login')
 module.exports = router;
