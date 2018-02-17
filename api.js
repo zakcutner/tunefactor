@@ -114,7 +114,7 @@ module.exports = {
 
 app.get('/login', function(req, res) {
 
-  getTracks("testuser", function(body) {
+  getTracks(username, function(body) {
     console.log("getTracks callback!");
     console.log(JSON.stringify(body));
   });
@@ -122,6 +122,8 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/callback', function(req, res) {
+
+  //username has to be stored in a cookie and retrieved here.
 
   console.log('callback received!');
 
@@ -160,7 +162,7 @@ app.get('/callback', function(req, res) {
             refresh_token = body.refresh_token;
 
         db.createTable();
-        db.addUser("testuser", access_token, refresh_token);
+        db.addUser("matthewyeo", access_token, refresh_token);
 
         //redirect to login.
 
