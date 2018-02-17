@@ -1,0 +1,11 @@
+# Folders
+node_modules/
+
+# Files
+*.log
+*.key.js
+
+# IDE
+.vscode/
+
+
