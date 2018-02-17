@@ -1,5 +1,5 @@
 {
-  "name": "tuna-api-server",
+  "name": "tuna-api",
   "version": "1.0.0",
   "description": "API Server",
   "main": "server.js",

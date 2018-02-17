@@ -8,5 +8,5 @@ testdata.json
 
 # IDE
 .vscode/
-
+*.swp
 
