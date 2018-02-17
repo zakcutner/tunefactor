@@ -1,5 +1,3 @@
-
-
 class VerificationProcess {
   constructor(songs) {
     this.songs        = songs;
@@ -11,18 +9,28 @@ class VerificationProcess {
     this.attempt      = 0;
   }
 
+  static extractSongData(song) {
+    return {
+             id:         song.id,
+             name:       song.name,
+             previewURL: song.preview_url,
+             coverArt:   song.album.images.reduce((smallest, next) => smallest.height > next.height ? next : smallest).url,
+             artists:    song.artists.map(a => a.name).reduce((ns, n) => `${ns}, ${n}`)
+           };
+  }
+
   getSongs() {
     const groupSize = Math.floor(this.songs.length / 3);
 
     this.currentSongs[0] = this.songs[Math.floor(groupSize * Math.random())];
     this.currentSongs[1] = this.songs[Math.floor(groupSize * Math.random()) + groupSize];
-    this.currentSongs[2] = this.songs[Math.floor(groupSize * 2 * Math.random()) + (groupSize * 2) - 1];
+    this.currentSongs[2] = this.songs[Math.floor(groupSize * Math.random()) + (groupSize * 2)];
     
     this.one   = this.currentSongs[0].id;  // spotify ID for the track
     this.two   = this.currentSongs[1].id;
     this.three = this.currentSongs[2].id;
 
-    return this.currentSongs.map(song => song.id);
+    return this.currentSongs.map(VerificationProcess.extractSongData);
   }
 
   updateScore(orderedSongs) {
