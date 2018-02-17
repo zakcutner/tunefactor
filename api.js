@@ -55,7 +55,7 @@ app.get('/signup', function(req, res) {
 
 });
 
-function getTracks(username) {
+function getTracks(username, callback) {
 
   db.createTable();
   var tokens = db.getTokens(username);
@@ -88,15 +88,15 @@ function getTracks(username) {
         if (!error && response.statusCode === 200) {
           var access_token = body.access_token;
           db.updateAccessToken(username, access_token);
-          return getTracks(username);
+          callback(getTracks(username));
         } else {
-          return body;
+          callback(body);
         }
       });
 
     }
 
-    return body;
+    callback(body);
   });
 }
 
