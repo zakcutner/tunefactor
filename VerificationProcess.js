@@ -40,7 +40,7 @@ class VerificationProcess {
     this.attempt++;
 
     const roundScore = this.getRoundScore(orderedSongs);
-    const multiplier = ((roundScore < 0) ? 1.3 : 0.7) ** this.attempt;
+    const multiplier = ((roundScore < 0) ? 1.3 : 0.7) ** (this.attempt - 1);
     
     this.score += roundScore * multiplier;
 
