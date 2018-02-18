@@ -1,0 +1,15 @@
+# Folders
+node_modules/
+css/
+
+# Files
+*.log
+*.key.js
+*.db
+*.DS_Store
+testdata.json
+
+# IDE
+.vscode/
+*.swp
+
