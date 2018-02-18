@@ -6,7 +6,6 @@ const express             = require("express"),
       thresholdScore      = 0.5,
       failScore           = -0.5;
       maxGuesses          = 4,
-      tempObj             = JSON.parse(require("fs").readFileSync("testdata.json", "utf-8")),
       vps                 = {},
       getTracks           = require("./api.js").getTracks;
 
@@ -26,7 +25,6 @@ app.post("/api/initial_song", (req, res) => {
     res.json(vps[username].getSongs());
   }
 
-  // firstSong(tempObj);
   getTracks(username,firstSong);
   
 });
