@@ -12,7 +12,10 @@ const express             = require("express"),
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("ui"));
 
+// TODO: remove!!!
+app.post("/login", (req, res) => res.json({success: true}));
 
 app.post("/api/initial_song", (req, res) => {
   const username = req.body.username || "";

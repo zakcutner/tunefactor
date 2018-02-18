@@ -23,10 +23,6 @@ $(function() {
     });
 
     if ($('.owl-item.active section').hasClass('initial')) {
-      Sortable.create($('.owl-item.active ul')[0], {
-        animation: 150
-      });
-
       username = $('#username').val();
 
       $.post('/login', {
@@ -53,6 +49,9 @@ $(function() {
             });
 
             next.click();
+            Sortable.create($('.owl-item.active ul')[0], {
+              animation: 150
+            });
           });
         }
       });
@@ -79,6 +78,9 @@ $(function() {
             });
 
             next.click();
+            Sortable.create($('.owl-item.active ul')[0], {
+              animation: 150
+            });
             break;
           case 'pass':
             alert('Passed');
