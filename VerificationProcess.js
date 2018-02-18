@@ -19,6 +19,15 @@ class VerificationProcess {
            };
   }
 
+  static shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+
+    return a;
+  }
+
   getSongs() {
     const groupSize = Math.floor(this.songs.length / 3);
 
@@ -30,7 +39,9 @@ class VerificationProcess {
     this.two   = this.currentSongs[1].id;
     this.three = this.currentSongs[2].id;
 
-    return this.currentSongs.map(VerificationProcess.extractSongData);
+    console.dir(this.currentSongs.map(s => s.name));
+
+    return VerificationProcess.shuffle(this.currentSongs.map(VerificationProcess.extractSongData));
   }
 
   updateScore(orderedSongs) {
