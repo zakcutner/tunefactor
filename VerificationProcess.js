@@ -64,21 +64,21 @@ class VerificationProcess {
     // +ve = mostly correct
     // -ve = mostly wrong
     
-    if (orderedSongs[0] == this.one) {  // case 1 or 3
-      if (orderedSongs[1] == this.two) return 0.6;  // case 1
-      
-      return 0.3;  // case 3;
-    }
-    
-    if (orderedSongs[1] == this.one) {  // case 4 or 6
-      if (orderedSongs[0] == this.two) return 0.2;  // case 4
+    if (orderedSongs[0] == this.one) {
+      if (orderedSongs[1] == this.two) return 0.5;
 
-      return 0.1;  // case 6
+      return 0.3;
     }
-    
-    if (orderedSongs[0] == this.two) return -0.1;  // case 5
 
-    return -0.3;  // case 2
+    if (orderedSongs[0] == this.two) {
+      if (orderedSongs[1] == this.one) return 0.1;
+
+      else return -0.1;
+    }
+
+    if (orderedSongs[1] == this.one) return -0.3;
+
+    return -0.5;
   }
 
 }
