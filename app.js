@@ -32,9 +32,9 @@ app.set('view engine', 'jade');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'ui')));
+app.use(express.static('ui'));
 app.use(expressValidator())
 
 var LocalStrategy = require('passport-local').Strategy;
@@ -51,6 +51,10 @@ passport.deserializeUser(function(id, done) {
   if (!row) return done(null, false);
   return done(null, row);
 });
+
+
+require("./authenticate.js")(app);
+
 
 // Get Landing Page Route
 // ----------------------
@@ -178,6 +182,6 @@ app.use(function(req, res, next) {
   res.render('error');
 }); */
 
-app.listen(3000);
+app.listen(3000, () => console.log("Listening on port 3000."));
 
 module.exports = app;
