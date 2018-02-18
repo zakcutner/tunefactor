@@ -41,6 +41,7 @@ $(function() {
 
   $('.next').click(function(e) {
     e.preventDefault();
+    $(this).addClass('disabled');
 
     var next = $('.owl-dot.active').next();
 
@@ -57,6 +58,7 @@ $(function() {
       }, function(data) {
         if (data.success) {
           $.post('/api/initial_song', { username: username }, function(data) {
+            data.push(data[0]); // REMOVE!!!
             data.forEach(function(song) {
               $('.owl-item.active').next()
                 .find('ul')
@@ -74,7 +76,9 @@ $(function() {
               audios[song.id] = new Audio(song.previewURL);
             });
 
+            $('a.next').removeClass('disabled');
             next.click();
+
             Sortable.create($('.owl-item.active ul')[0], {
               animation: 150
             });
@@ -88,6 +92,7 @@ $(function() {
       }, function(data) {
         switch (data.mode) {
           case 'hold':
+            data.songs.push(data.songs[0]); // REMOVE!!!
             data.songs.forEach(function(song) {
               $('.owl-item.active').next()
                 .find('ul')
@@ -104,7 +109,9 @@ $(function() {
               audios[song.id] = new Audio(song.previewURL);
             });
 
+            $('a.next').removeClass('disabled');
             next.click();
+
             Sortable.create($('.owl-item.active ul')[0], {
               animation: 150
             });

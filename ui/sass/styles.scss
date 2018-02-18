@@ -65,7 +65,7 @@ header {
   a {
     display: inline-block;
     background: darken($secondary, 20);
-    padding: 15px;
+    padding: 14px;
     border-radius: 999px;
     margin-left: 20px;
     width: 150px;
@@ -102,17 +102,17 @@ header {
   }
 
   h1 {
-    font-size: 28px;
+    font-size: 24px;
 
     i {
-      height: 50px;
-      width: 50px;
+      height: 55px;
+      width: 55px;
       background: darken($primary, 5);
       color: $white;
       border-radius: 50%;
       text-align: center;
-      line-height: 50px;
-      font-size: 20px;
+      line-height: 55px;
+      font-size: 22px;
       box-shadow: 0px 0px 15px 0px rgba($black, 0.1);
     }
   }
@@ -133,34 +133,23 @@ header {
   }
 
   p.instructions {
-     margin: 35px 0;
+     margin: 25px 0;
   }
 
   .inputs {
-    margin-bottom: 15px;
-  }
-
-  .input {
-    display: flex;
-    width: 100%;
-    margin-top: 20px;
-    background: darken($primary, 5);
-    padding: 20px 25px;
-    border-radius: 5px;
-
-    i {
-      color: #777;
-      margin-right: 15px;
-    }
+    margin: 3px 0 10px 0;
   }
 
   input {
-    flex: 1;
-    display: inline-block;
-    background: inherit;
+    display: block;
+    background: darken($primary, 5);
+    padding: 17px 25px;
+    border-radius: 5px;
+    margin-top: 17px;
+    width: 100%;
     font-family: inherit;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 15px;
     color: #fff;
   }
 
@@ -169,8 +158,8 @@ header {
     background: darken($primary, 5);
     color: #fff;
     border-radius: 5px;
-    padding: 15px;
-    margin: 15px 0;
+    padding: 10px;
+    margin: 10px 0;
     z-index: 2;
     cursor: move;
 
@@ -186,12 +175,12 @@ header {
     img {
       box-shadow: 0px 0px 15px 0px rgba($black, 0.1);
       border-radius: 5px;
-      width: 45px !important;
-      height: 45px !important;
+      width: 40px !important;
+      height: 40px !important;
     }
 
     p {
-      font-size: 14px;
+      font-size: 13px;
       margin-left: 20px;
       width: 210px;
       white-space: nowrap;
@@ -205,18 +194,17 @@ header {
     a {
       position: absolute;
       right: 15px;
-      background: $secondary;
-      opacity: 0.4;
-      height: 45px;
-      width: 45px;
-      line-height: 45px;
+      background: darken($primary, 10);
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
       text-align: center;
       border-radius: 50%;
       box-shadow: 0px 0px 15px 0px rgba($black, 0.1);
-      transition: opacity 0.2s ease;
+      transition: background 0.2s ease;
 
       &:hover, &.play {
-        opacity: 1;
+        background: $secondary;
       }
     }
   }
@@ -225,15 +213,20 @@ header {
     position: relative;
     display: inline-block;
     background: $secondary;
-    padding: 15px;
+    padding: 13px;
     border-radius: 999px;
     width: 150px;
-    margin-top: 20px;
+    margin-top: 15px;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 15px;
     text-align: center;
     box-shadow: 0px 0px 15px 0px rgba($black, 0.1);
+    transition: opacity 0.2s ease;
+
+    &.disabled {
+      opacity: 0.4;
+    }
 
     i {
       position: absolute;
