@@ -9,6 +9,7 @@ var expressSession = require('express-session');
 var expressValidator = require('express-validator');
 var crypto = require('crypto');
 var Database = require('better-sqlite3');
+var api = require('./api.js');
 
 // Change the name of the sqlite database
 var db = new Database('users5.db');
@@ -118,9 +119,13 @@ app.post('/login',
   failureRedirect: "failurejson",
 }));
 
-// Registration Route
+// Registration Routes
 // ---------------------
 app.post('/register', function(req,res) {
+
+  console.log("entered register route");
+  console.log(req.body);
+  return;
   var emailinput = req.body.email;
   var usernameinput = req.body.username;
   var passwordinput = req.body.password;
@@ -149,10 +154,24 @@ app.post('/register', function(req,res) {
               salt: saltinput,
               password: hashpass});
     // res.redirect('/');
-    res.json({ success: true });
+    // res.json({ success: true });
+
+    //redirect to spotify login.
+    res.redirect('/spotifylogin');
   }
 });
 
+app.get('/test', function(req, res) {
+  res.sendFile('signup.html' , { root : __dirname});
+});
+
+app.get('/spotifylogin', function(req, res) {
+  api.authenticateWithSpotify(res, "http://localhost:3000/spotifycallback");
+});
+
+app.get('/spotifycallback', function(req, res) {
+  api.validateAndAddUser(req, res);
+});
 
 // Logout Route
 //-------------

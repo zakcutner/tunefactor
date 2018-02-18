@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var key = require('./spotify.key');
 var client_id = key.CLIENT_ID;
 var client_secret = key.CLIENT_SECRET;
-var redirect_uri = 'http://localhost:8888/callback';
+var redirect_uri = 'http://localhost:3000/spotifycallback';
 
 const db = require('./db.js');
 /**
@@ -43,16 +43,17 @@ function authenticateWithSpotify(httpResponse, callbackURL) {
 
   // your application requests authorization
   var scope = 'user-read-private user-read-email user-top-read';
+  // httpResponse
 
-  httpResponse.redirect('https://accounts.spotify.com/authorize?' +
+  httpResponse.send(('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
       client_id: client_id,
       scope: scope,
-      redirect_uri: redirect_uri,
+      redirect_uri: callbackURL,
       state: state,
       show_dialog: true
-    }));
+    })));
 
 }
 
@@ -108,7 +109,11 @@ function getTracks(username, callback) {
   });
 }
 
-module.exports.getTracks = getTracks;
+module.exports = {
+  getTracks: getTracks,
+  authenticateWithSpotify: authenticateWithSpotify,
+  validateAndAddUser: validateAndAddUser
+}
 
 app.get('/login', function(req, res) {
 
@@ -119,14 +124,7 @@ app.get('/login', function(req, res) {
 
 });
 
-app.get('/callback', function(req, res) {
-
-  //username has to be stored in a cookie and retrieved here.
-
-  console.log('callback received!');
-
-  // your application requests refresh and access tokens
-  // after checking the state parameter
+function validateAndAddUser(req, res) {
 
   var code = req.query.code || null;
   var state = req.query.state || null;
@@ -162,6 +160,8 @@ app.get('/callback', function(req, res) {
         db.createTable();
         db.addUser("matthewyeo", access_token, refresh_token);
 
+        console.log("user successfully added to database");
+        res.redirect('/login');
         //redirect to login.
 
       } else {
@@ -174,7 +174,5 @@ app.get('/callback', function(req, res) {
       }
     });
   }
-});
 
-// console.log('Listening on 8888');
-// app.listen(8888);
+}
