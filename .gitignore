@@ -6,6 +6,7 @@ css/
 *.log
 *.key.js
 *.db
+*.DS_Store
 testdata.json
 
 # IDE

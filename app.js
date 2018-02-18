@@ -131,20 +131,21 @@ app.post('/register', function(req,res) {
   var errors = req.validationErrors();
 
   var saltinput = crypto.randomBytes(16);
+  var hashpass = hashPassword(passwordinput, saltinput);
 
 
   if (errors){
-    res.render('register', {
-      errors:errors
-  });
+    console.log(errors);
+    res.json({ success: false, message: errors });
   } else {
     //Insert into database user information
     var stmt = db.prepare("INSERT INTO users VALUES (@username, @password, @salt, @email)");
     stmt.run({username: usernameinput,
               email: emailinput,
               salt: saltinput,
-              password: passwordinput});
-    res.redirect('/');
+              password: hashpass});
+    // res.redirect('/');
+    res.json({ success: true });
   }
 });
 
@@ -167,7 +168,7 @@ app.use(function(req, res, next) {
 
 
 // error handler
-app.use(function(err, req, res, next) {
+/* app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -175,7 +176,7 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
+}); */
 
 app.listen(3000);
 
