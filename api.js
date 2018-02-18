@@ -67,8 +67,6 @@ function getTracks(username, callback) {
   db.createTable();
   var tokens = db.getTokens(username);
 
-  console.dir(tokens);
-
   var access_token = tokens.access_token;
   var refresh_token = tokens.refresh_token;
 

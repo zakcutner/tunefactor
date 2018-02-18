@@ -33,10 +33,10 @@ app.post("/api/authenticate", (req, res) => {
   const username = req.body.username,
         guess    = req.body.order,
         newScore = vps[username].updateScore(guess);
-
+  
   let mode = vps[username].attempt >= maxGuesses ? "fail" : "hold";
 
-  if (vps[username].attempt <= failScore) mode = "fail";
+  if (newScore <= failScore) mode = "fail";
 
   if (newScore >= thresholdScore && mode === "hold") mode = "pass";
 
