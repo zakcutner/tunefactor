@@ -65,7 +65,6 @@ $(function() {
       }, function(data) {
         if (data.success) {
           $.post('/api/initial_song', { username: username }, function(data) {
-            // data.push(data[0]); // REMOVE!!!
             data.forEach(function(song) {
               $('.owl-item.active').next()
                 .find('ul')
@@ -99,7 +98,6 @@ $(function() {
       }, function(data) {
         switch (data.mode) {
           case 'hold':
-            // data.songs.push(data.songs[0]); // REMOVE!!!
             data.songs.forEach(function(song) {
               $('.owl-item.active').next()
                 .find('ul')
@@ -125,11 +123,9 @@ $(function() {
             break;
           case 'pass':
             alert('Passed');
-            $('.owl-dot').first().click();
             break;
           case 'fail':
             alert('Failed');
-            $('.owl-dot').first().click();
             break;
           default:
             console.error('Invalid mode: ' + data.mode);
