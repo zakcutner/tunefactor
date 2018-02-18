@@ -124,12 +124,24 @@ header {
     .owl-dots {
       display: none;
     }
+
+    .owl-dot {
+      background: blue;
+
+      &.active {
+        background: yellow;
+      }
+    }
   }
 
   section {
     display: inline-block;
     width: 370px;
     margin-right: 40px;
+
+    &:not(.initial) {
+      // height: 366px;
+    }
   }
 
   p.instructions {

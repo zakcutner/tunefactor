@@ -23,7 +23,9 @@ module.exports = function(app) {
     const username = req.body.username,
           guess    = req.body.order,
           newScore = vps[username].updateScore(guess);
-    
+
+    console.log(`NEW SCORE: ${newScore}`);
+
     let mode = vps[username].attempt >= maxGuesses ? "fail" : "hold";
 
     if (newScore <= failScore) mode = "fail";

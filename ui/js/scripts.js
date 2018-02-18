@@ -29,16 +29,23 @@ Audio.prototype.fadeOut = function() {
   }.bind(this), 50);
 };
 
-$(function() {
-  $(document).ready(function(){
-    $('.owl-carousel').owlCarousel({
-      mouseDrag: false,
-      autoWidth: true,
-      autoHeight: true,
-      dotsSpeed: 400
-    });
+$(window).on('load', function() {
+  $('.owl-carousel').owlCarousel({
+    mouseDrag: false,
+    autoWidth: true,
+    autoHeight: true,
+    dotsSpeed: 400
   });
 
+  setInterval(function() {
+    $('.owl-carousel').each(function() {
+      console.log($(this).data('owl.carousel'));
+      $(this).data('owl.carousel').updateVars();
+    });
+  },1500);
+});
+
+$(function() {
   $('.next').click(function(e) {
     e.preventDefault();
     $(this).addClass('disabled');
@@ -58,7 +65,7 @@ $(function() {
       }, function(data) {
         if (data.success) {
           $.post('/api/initial_song', { username: username }, function(data) {
-            data.push(data[0]); // REMOVE!!!
+            // data.push(data[0]); // REMOVE!!!
             data.forEach(function(song) {
               $('.owl-item.active').next()
                 .find('ul')
@@ -92,7 +99,7 @@ $(function() {
       }, function(data) {
         switch (data.mode) {
           case 'hold':
-            data.songs.push(data.songs[0]); // REMOVE!!!
+            // data.songs.push(data.songs[0]); // REMOVE!!!
             data.songs.forEach(function(song) {
               $('.owl-item.active').next()
                 .find('ul')
@@ -118,9 +125,11 @@ $(function() {
             break;
           case 'pass':
             alert('Passed');
+            $('.owl-dot').first().click();
             break;
           case 'fail':
             alert('Failed');
+            $('.owl-dot').first().click();
             break;
           default:
             console.error('Invalid mode: ' + data.mode);

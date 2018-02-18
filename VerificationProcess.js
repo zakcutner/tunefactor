@@ -36,7 +36,7 @@ class VerificationProcess {
     this.currentSongs[1] = this.songs[Math.floor(groupSize * Math.random()) + groupSize];
     this.currentSongs[2] = this.songs[Math.floor(groupSize * Math.random()) + (groupSize * 2)];
     this.currentSongs[3] = this.songs[Math.floor(groupSize * Math.random()) + (groupSize * 3)];
-    
+
     this.one   = this.currentSongs[0].id;  // spotify ID for the track
     this.two   = this.currentSongs[1].id;
     this.three = this.currentSongs[2].id;
@@ -48,14 +48,14 @@ class VerificationProcess {
   }
 
   updateScore(orderedSongs) {
-    // returns -1 < n < 1 
+    // returns -1 < n < 1
     //  where n > 0.5 means the user is verified
 
     this.attempt++;
 
     const roundScore = this.getRoundScore(orderedSongs);
     const multiplier = 1; //((roundScore < 0) ? 1.3 : 0.7) ** (this.attempt - 1);
-    
+
     this.score += roundScore * multiplier;
 
     return this.score;
@@ -66,8 +66,8 @@ class VerificationProcess {
     // 0   = half correct
     // +ve = mostly correct
     // -ve = mostly wrong
-    
-    return VerificationProcess.map.get(this.getOrders(orderedSongs));
+
+    return VerificationProcess.map[this.getOrders(orderedSongs).join("")];
   }
 
   getOrders(orderedSongs) {
@@ -90,32 +90,32 @@ class VerificationProcess {
   }
 }
 
-VerificationProcess.map = new Map([
-  [[1, 2, 3, 4], +0.5],
-  [[1, 2, 4, 3], +0.3], // good
-  [[1, 3, 2, 4], +0.3], // good
-  [[1, 3, 4, 2], +0.1], // good
-  [[1, 4, 2, 3], +0.1], // good
-  [[1, 4, 3, 2], -0.3], // bad
-  [[2, 1, 3, 4], +0.3], // good
-  [[2, 1, 4, 3], +0.1], // good
-  [[2, 3, 1, 4], +0.1], // good
-  [[2, 3, 4, 1], +0.1], // good
-  [[2, 4, 1, 3], -0.1], // bad
-  [[2, 4, 3, 1], -0.1], // bad
-  [[3, 2, 1, 4], -0.1], // bad
-  [[3, 2, 4, 1], -0.1], // bad
-  [[3, 1, 2, 4], +0.1], // good
-  [[3, 1, 4, 2], +0.1], // good
-  [[3, 4, 2, 1], -0.3], // bad
-  [[3, 4, 1, 2], -0.1], // bad
-  [[4, 2, 3, 1], -0.1], // bad
-  [[4, 2, 1, 3], -0.3], // bad
-  [[4, 3, 2, 1], -0.5],
-  [[4, 3, 1, 2], -0.3], // bad
-  [[4, 1, 2, 3], +0.3], // good
-  [[4, 1, 3, 2], -0.1], // bad
-]);
+VerificationProcess.map = {
+  "1234": +0.5,
+  "1243": +0.3, // good
+  "1324": +0.3, // good
+  "1342": +0.1, // good
+  "1423": +0.1, // good
+  "1432": -0.3, // bad
+  "2134": +0.3, // good
+  "2143": +0.1, // good
+  "2314": +0.1, // good
+  "2341": +0.1, // good
+  "2413": -0.1, // bad
+  "2431": -0.1, // bad
+  "3214": -0.1, // bad
+  "3241": -0.1, // bad
+  "3124": +0.1, // good
+  "3142": +0.1, // good
+  "3421": -0.3, // bad
+  "3412": -0.1, // bad
+  "4231": -0.1, // bad
+  "4213": -0.3, // bad
+  "4321": -0.5,
+  "4312": -0.3, // bad
+  "4123": +0.3, // good
+  "4132": -0.1, // bad
+};
 
 module.exports = VerificationProcess;
 
