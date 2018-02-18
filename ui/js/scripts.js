@@ -29,7 +29,7 @@ Audio.prototype.fadeOut = function() {
   }.bind(this), 50);
 };
 
-$(window).on('load', function() {
+$(function() {
   $('.owl-carousel').owlCarousel({
     mouseDrag: false,
     autoWidth: true,
@@ -37,15 +37,13 @@ $(window).on('load', function() {
     dotsSpeed: 400
   });
 
-  setInterval(function() {
-    $('.owl-carousel').each(function() {
-      console.log($(this).data('owl.carousel'));
-      $(this).data('owl.carousel').updateVars();
-    });
-  },1500);
-});
+  $('input').keypress(function(e) {
+    if (e.which == 13) {
+      $('a.next').click();
+      return false;
+    }
+  });
 
-$(function() {
   $('.next').click(function(e) {
     e.preventDefault();
     $(this).addClass('disabled');
