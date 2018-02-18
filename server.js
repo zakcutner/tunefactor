@@ -26,16 +26,13 @@ app.post("/api/initial_song", (req, res) => {
   }
 
   getTracks(username,firstSong);
-  
+
 });
 
 app.post("/api/authenticate", (req, res) => {
   const username = req.body.username,
         guess    = req.body.order,
         newScore = vps[username].updateScore(guess);
-
-  console.dir(username);
-  console.dir(guess);
 
   let mode = vps[username].attempt >= maxGuesses ? "fail" : "hold";
 

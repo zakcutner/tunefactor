@@ -3,6 +3,32 @@
 var username;
 var audios = {};
 
+Audio.prototype.fadeIn = function() {
+  var actualVolume = 0;
+
+  this.volume = actualVolume;
+  this.play();
+
+  var fadeInInterval = setInterval(function() {
+    actualVolume = (parseFloat(actualVolume) + 0.1).toFixed(1);
+    if (actualVolume <= 1) this.volume = actualVolume;
+    else clearInterval(fadeInInterval);
+  }.bind(this), 50);
+};
+
+Audio.prototype.fadeOut = function() {
+  var actualVolume = this.volume;
+  var fadeOutInterval = setInterval(function() {
+      actualVolume = (parseFloat(actualVolume) - 0.1).toFixed(1);
+      if (actualVolume >= 0) this.volume = actualVolume;
+      else {
+          this.pause();
+          this.currentTime = 0;
+          clearInterval(fadeOutInterval);
+      }
+  }.bind(this), 50);
+};
+
 $(function() {
   $(document).ready(function(){
     $('.owl-carousel').owlCarousel({
@@ -75,6 +101,7 @@ $(function() {
                             '<i class="fas fa-volume-up"></i>' +
                           '</a>' +
                         '</li>');
+              audios[song.id] = new Audio(song.previewURL);
             });
 
             next.click();
@@ -99,10 +126,9 @@ $(function() {
     e.preventDefault();
     var audio = audios[$(this).parent().attr('data-id')];
 
-    if ($(this).hasClass('play')) audio.pause();
-    else audio.play();
+    if ($(this).hasClass('play')) audio.fadeOut();
+    else audio.fadeIn();
 
-    audio.currentTime = 0;
     $(this).toggleClass('play');
   });
 });
