@@ -149,8 +149,17 @@ app.post('/register', function(req,res) {
               salt: saltinput,
               password: hashpass});
     // res.redirect('/');
-    res.json({ success: true });
+    // res.json({ success: true });
+    res.redirect("/spotifylogin");
   }
+});
+
+app.get("/spotifylogin", function(req, res) {
+  api.authenticateWithSpotify(res, "http://tunefactor.tech/spotifycallback");
+});
+
+app.get("/spotifycallback", function(req, res) {
+  api.validateAndAddUser(req, res);
 });
 
 
