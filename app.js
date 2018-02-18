@@ -9,6 +9,7 @@ var expressSession = require('express-session');
 var expressValidator = require('express-validator');
 var crypto = require('crypto');
 var Database = require('better-sqlite3');
+var api = require("./api.js");
 
 // Change the name of the sqlite database
 var db = new Database('users5.db');
