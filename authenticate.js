@@ -26,11 +26,13 @@ module.exports = function(app) {
 
     console.log(`NEW SCORE: ${newScore}`);
 
-    let mode = vps[username].attempt >= maxGuesses ? "fail" : "hold";
+    let mode = "hold";
+
+    if (newScore >= thresholdScore && vps[username].attempt <= maxGuesses) mode = "pass";
+
+    if (vps[username].attempt >= maxGuesses && mode !== "pass") mode = "fail";
 
     if (newScore <= failScore) mode = "fail";
-
-    if (newScore >= thresholdScore && mode === "hold") mode = "pass";
 
     let ret = { mode: mode };
 
