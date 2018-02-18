@@ -67,7 +67,7 @@ class VerificationProcess {
     // +ve = mostly correct
     // -ve = mostly wrong
     
-    return VerificationProcess.map.get(getOrders(orderedSongs));
+    return VerificationProcess.map.get(this.getOrders(orderedSongs));
   }
 
   getOrders(orderedSongs) {
