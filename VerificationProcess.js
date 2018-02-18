@@ -5,6 +5,7 @@ class VerificationProcess {
     this.one          = "";
     this.two          = "";
     this.three        = "";
+    this.four         = "";
     this.score        = 0;
     this.attempt      = 0;
   }
@@ -29,15 +30,17 @@ class VerificationProcess {
   }
 
   getSongs() {
-    const groupSize = Math.floor(this.songs.length / 3);
+    const groupSize = Math.floor(this.songs.length / 4);
 
     this.currentSongs[0] = this.songs[Math.floor(groupSize * Math.random())];
     this.currentSongs[1] = this.songs[Math.floor(groupSize * Math.random()) + groupSize];
     this.currentSongs[2] = this.songs[Math.floor(groupSize * Math.random()) + (groupSize * 2)];
+    this.currentSongs[3] = this.songs[Math.floor(groupSize * Math.random()) + (groupSize * 3)];
     
     this.one   = this.currentSongs[0].id;  // spotify ID for the track
     this.two   = this.currentSongs[1].id;
     this.three = this.currentSongs[2].id;
+    this.four  = this.currentSongs[3].id;
 
     console.dir(this.currentSongs.map(s => s.name));
 
@@ -64,25 +67,55 @@ class VerificationProcess {
     // +ve = mostly correct
     // -ve = mostly wrong
     
-    if (orderedSongs[0] == this.one) {
-      if (orderedSongs[1] == this.two) return 0.5;
-
-      return 0.3;
-    }
-
-    if (orderedSongs[0] == this.two) {
-      if (orderedSongs[1] == this.one) return 0.1;
-
-      else return -0.1;
-    }
-
-    if (orderedSongs[1] == this.one) return -0.3;
-
-    return -0.5;
+    return VerificationProcess.map.get(getOrders(orderedSongs));
   }
 
+  getOrders(orderedSongs) {
+    return orderedSongs.map(orderedSong => this.getOrder(orderedSong));
+  }
+
+  getOrder(orderedSong) {
+    switch (orderedSong) {
+      case this.one:
+        return 1;
+      case this.two:
+        return 2;
+      case this.three:
+        return 3;
+      case this.four:
+        return 4;
+      default:
+        console.error('Invalid number: ' + orderedSong);
+    }
+  }
 }
 
-module.exports = VerificationProcess;
+VerificationProcess.map = new Map([
+  [[1, 2, 3, 4], +0.5],
+  [[1, 2, 4, 3], +0.3], // good
+  [[1, 3, 2, 4], +0.3], // good
+  [[1, 3, 4, 2], +0.1], // good
+  [[1, 4, 2, 3], +0.1], // good
+  [[1, 4, 3, 2], -0.3], // bad
+  [[2, 1, 3, 4], +0.3], // good
+  [[2, 1, 4, 3], +0.1], // good
+  [[2, 3, 1, 4], +0.1], // good
+  [[2, 3, 4, 1], +0.1], // good
+  [[2, 4, 1, 3], -0.1], // bad
+  [[2, 4, 3, 1], -0.1], // bad
+  [[3, 2, 1, 4], -0.1], // bad
+  [[3, 2, 4, 1], -0.1], // bad
+  [[3, 1, 2, 4], +0.1], // good
+  [[3, 1, 4, 2], +0.1], // good
+  [[3, 4, 2, 1], -0.3], // bad
+  [[3, 4, 1, 2], -0.1], // bad
+  [[4, 2, 3, 1], -0.1], // bad
+  [[4, 2, 1, 3], -0.3], // bad
+  [[4, 3, 2, 1], -0.5],
+  [[4, 3, 1, 2], -0.3], // bad
+  [[4, 1, 2, 3], +0.3], // good
+  [[4, 1, 3, 2], -0.1], // bad
+]);
 
+module.exports = VerificationProcess;
 
